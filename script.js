@@ -237,4 +237,25 @@ document.addEventListener('DOMContentLoaded', () => {
         formJoin.classList.remove('hidden');
         document.getElementById('join-result').classList.add('hidden');
     };
+
+    // Copy to clipboard functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetId = e.target.getAttribute('data-target');
+            const textToCopy = document.getElementById(targetId).textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = e.target.textContent;
+                e.target.textContent = '✅ Copied!';
+                e.target.style.color = 'var(--primary-color)';
+                setTimeout(() => {
+                    e.target.textContent = originalText;
+                    e.target.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Gagal menyalin kode. Silakan blok dan salin manual.');
+            });
+        });
+    });
 });

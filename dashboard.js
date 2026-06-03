@@ -60,24 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('host-mode-container').classList.remove('hidden');
     }
 
-    // Tab Navigation
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            btn.classList.add('active');
-            const targetId = btn.getAttribute('data-target');
-            document.getElementById(`tab-${targetId}`).classList.add('active');
-
-            if (targetId === 'chat') {
-                renderChat();
-            }
-        });
-    });
+    // Tab Navigation - REMOVED for 3-column layout
 
     // Logout
     document.getElementById('btn-logout').addEventListener('click', () => {
@@ -508,17 +491,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger initial renders
     renderMatches(allMatches);
     renderLeaderboard();
+    // Note: renderChat is defined later, so we will call it where we removed tabs or at the end.
+    // However, JS hoisting does not apply to const arrow functions. 
+    // We should move the renderChat() call to after it's defined, or just let the chat section trigger it.
 
     // ----------------------------------------------------
     // Actual Scores Sync & Tournament Simulation Logic
     // ----------------------------------------------------
-    const SCORE_API_URL = "https://raw.githubusercontent.com/moonziircode/kingwc2026/main/wc2026-actual-scores.json";
+    const SCORE_API_URL = "/api/sync";
 
     const fetchActualScores = async (isManual = false) => {
         const btn = document.getElementById('btn-sync-scores');
         const originalText = btn ? btn.innerHTML : '';
         if (btn && isManual) {
-            btn.innerHTML = '🔄 Syncing...';
+            btn.innerHTML = '🔄 Syncing Live Scores...';
             btn.disabled = true;
         }
 
@@ -527,13 +513,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const apiScores = await response.json();
+            const result = await response.json();
             
-            if (apiScores && typeof apiScores === 'object') {
-                leagueData.actualScores = {
-                    ...leagueData.actualScores,
-                    ...apiScores
-                };
+            if (result && result.success && Array.isArray(result.data)) {
+                
+                // Map the array of live matches to our match IDs
+                result.data.forEach(liveMatch => {
+                    // Find corresponding match ID in allMatches
+                    const matchObj = allMatches.find(m => 
+                        (m.teamA.toLowerCase() === liveMatch.teamA.toLowerCase() && m.teamB.toLowerCase() === liveMatch.teamB.toLowerCase()) ||
+                        (m.teamA.toLowerCase() === liveMatch.teamB.toLowerCase() && m.teamB.toLowerCase() === liveMatch.teamA.toLowerCase())
+                    );
+
+                    if (matchObj) {
+                        const mId = matchObj.id;
+                        // Ensure we assign A and B to the correct teams based on how they appear in our allMatches
+                        const scoreA = (matchObj.teamA.toLowerCase() === liveMatch.teamA.toLowerCase()) ? liveMatch.scoreA : liveMatch.scoreB;
+                        const scoreB = (matchObj.teamB.toLowerCase() === liveMatch.teamB.toLowerCase()) ? liveMatch.scoreB : liveMatch.scoreA;
+
+                        leagueData.actualScores[mId] = { A: scoreA, B: scoreB };
+                    }
+                });
                 
                 resetAndRecalculateKnockout();
                 calculateAllPlayerPoints();
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderMatches(allMatches);
                 renderLeaderboard();
                 
-                console.log("Scores auto-synced successfully from GitHub!");
+                console.log("Live scores auto-synced successfully via Vercel API!");
                 if (btn && isManual) {
                     btn.innerHTML = '✅ Sync Sukses!';
                     btn.style.color = 'var(--primary-color)';
@@ -855,4 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1500);
         });
     }
+
+    // Initialize Chat UI
+    renderChat();
 });
