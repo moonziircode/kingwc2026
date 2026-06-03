@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Gambler World Cup 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <main class="container">
+        <header class="hero">
+            <h1 class="headline">KING GAMBLER <br><span class="gold-text">WORLD CUP 2026</span></h1>
+            <p class="sub-headline">Predict the Score, Beat Your Friends. No Sign-up, Just Play.</p>
+        </header>
+        
+        <div class="actions">
+            <button id="btn-create-league" class="btn shiny-btn primary">Create New League</button>
+            <button id="btn-join-league" class="btn shiny-btn secondary">Join League</button>
+            <a href="#" id="link-continue" class="continue-link">Continue with Code &rarr;</a>
+        </div>
+    </main>
+
+    <!-- Dialogs -->
+    <dialog id="dialog-create">
+        <div class="dialog-content">
+            <button class="close-btn" aria-label="close">&times;</button>
+            <h2>Create New League</h2>
+            <form id="form-create">
+                <div class="input-group">
+                    <label for="create-league-name">Nama Liga</label>
+                    <input type="text" id="create-league-name" required placeholder="e.g. Liga Kantor">
+                </div>
+                <div class="input-group">
+                    <label for="create-nickname">Nickname</label>
+                    <input type="text" id="create-nickname" required placeholder="Your name">
+                </div>
+                <button type="submit" class="btn primary w-full mt-4">Generate Code</button>
+            </form>
+            <div id="create-result" class="result-box hidden">
+                <div class="alert warning">
+                    <strong>SIMPAN KODE INI!</strong> Ini satu-satunya cara untuk kembali ke game Anda.
+                </div>
+                <div class="code-display">
+                    <p>League Invite Code:</p>
+                    <h3 id="display-league-code" class="code gold-text"></h3>
+                </div>
+                <div class="code-display">
+                    <p>Unique Player Code:</p>
+                    <h3 id="display-player-code-create" class="code"></h3>
+                </div>
+                <button id="btn-enter-game-create" class="btn primary w-full mt-4">Enter Game</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="dialog-join">
+        <div class="dialog-content">
+            <button class="close-btn" aria-label="close">&times;</button>
+            <h2>Join League</h2>
+            <form id="form-join">
+                <div class="input-group">
+                    <label for="join-league-code">Kode Undangan Liga</label>
+                    <input type="text" id="join-league-code" required placeholder="6-digit code" maxlength="6" style="text-transform:uppercase">
+                </div>
+                <div class="input-group">
+                    <label for="join-nickname">Nickname</label>
+                    <input type="text" id="join-nickname" required placeholder="Your name">
+                </div>
+                <button type="submit" class="btn secondary w-full mt-4">Join</button>
+            </form>
+            <div id="join-result" class="result-box hidden">
+                <div class="alert warning">
+                    <strong>SIMPAN KODE INI!</strong> Ini satu-satunya cara untuk kembali ke game Anda.
+                </div>
+                <div class="code-display">
+                    <p>Unique Player Code:</p>
+                    <h3 id="display-player-code-join" class="code"></h3>
+                </div>
+                <button id="btn-enter-game-join" class="btn primary w-full mt-4">Enter Game</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="dialog-continue">
+        <div class="dialog-content">
+            <button class="close-btn" aria-label="close">&times;</button>
+            <h2>Continue with Code</h2>
+            <form id="form-continue">
+                <div class="input-group">
+                    <label for="continue-player-code">Unique Player Code</label>
+                    <input type="text" id="continue-player-code" required placeholder="12-digit code" maxlength="12" style="text-transform:uppercase">
+                </div>
+                <button type="submit" class="btn primary w-full mt-4">Play</button>
+            </form>
+        </div>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>

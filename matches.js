@@ -1,0 +1,1043 @@
+const matchesData = 
+[
+    {
+        "id": "m1",
+        "round": "Round 1 (Matchday 1)",
+        "date": "12 Jun 2026",
+        "time": "02:00",
+        "teamA": "Mexico",
+        "codeA": "mx",
+        "teamB": "South Africa",
+        "codeB": "za"
+    },
+    {
+        "id": "m2",
+        "round": "Round 1 (Matchday 1)",
+        "date": "12 Jun 2026",
+        "time": "09:00",
+        "teamA": "South Korea",
+        "codeA": "kr",
+        "teamB": "Czechia",
+        "codeB": "cz"
+    },
+    {
+        "id": "m3",
+        "round": "Round 1 (Matchday 1)",
+        "date": "13 Jun 2026",
+        "time": "02:00",
+        "teamA": "Canada",
+        "codeA": "ca",
+        "teamB": "Bosnia and Herzegovina",
+        "codeB": "ba"
+    },
+    {
+        "id": "m4",
+        "round": "Round 1 (Matchday 1)",
+        "date": "13 Jun 2026",
+        "time": "08:00",
+        "teamA": "USA",
+        "codeA": "us",
+        "teamB": "Paraguay",
+        "codeB": "py"
+    },
+    {
+        "id": "m5",
+        "round": "Round 1 (Matchday 1)",
+        "date": "14 Jun 2026",
+        "time": "02:00",
+        "teamA": "Qatar",
+        "codeA": "qa",
+        "teamB": "Switzerland",
+        "codeB": "ch"
+    },
+    {
+        "id": "m6",
+        "round": "Round 1 (Matchday 1)",
+        "date": "14 Jun 2026",
+        "time": "05:00",
+        "teamA": "Brazil",
+        "codeA": "br",
+        "teamB": "Morocco",
+        "codeB": "ma"
+    },
+    {
+        "id": "m7",
+        "round": "Round 1 (Matchday 1)",
+        "date": "14 Jun 2026",
+        "time": "08:00",
+        "teamA": "Haiti",
+        "codeA": "ht",
+        "teamB": "Scotland",
+        "codeB": "gb-sct"
+    },
+    {
+        "id": "m8",
+        "round": "Round 1 (Matchday 1)",
+        "date": "14 Jun 2026",
+        "time": "11:00",
+        "teamA": "Australia",
+        "codeA": "au",
+        "teamB": "T\u00fcrkiye",
+        "codeB": "tr"
+    },
+    {
+        "id": "m9",
+        "round": "Round 1 (Matchday 1)",
+        "date": "15 Jun 2026",
+        "time": "00:00",
+        "teamA": "Germany",
+        "codeA": "de",
+        "teamB": "Cura\u00e7ao",
+        "codeB": "cw"
+    },
+    {
+        "id": "m10",
+        "round": "Round 1 (Matchday 1)",
+        "date": "15 Jun 2026",
+        "time": "03:00",
+        "teamA": "Netherlands",
+        "codeA": "nl",
+        "teamB": "Japan",
+        "codeB": "jp"
+    },
+    {
+        "id": "m11",
+        "round": "Round 1 (Matchday 1)",
+        "date": "15 Jun 2026",
+        "time": "06:00",
+        "teamA": "Ivory Coast",
+        "codeA": "ci",
+        "teamB": "Ecuador",
+        "codeB": "ec"
+    },
+    {
+        "id": "m12",
+        "round": "Round 1 (Matchday 1)",
+        "date": "15 Jun 2026",
+        "time": "09:00",
+        "teamA": "Sweden",
+        "codeA": "se",
+        "teamB": "Tunisia",
+        "codeB": "tn"
+    },
+    {
+        "id": "m13",
+        "round": "Round 1 (Matchday 1)",
+        "date": "15 Jun 2026",
+        "time": "23:00",
+        "teamA": "Spain",
+        "codeA": "es",
+        "teamB": "Cape Verde",
+        "codeB": "cv"
+    },
+    {
+        "id": "m14",
+        "round": "Round 1 (Matchday 1)",
+        "date": "16 Jun 2026",
+        "time": "02:00",
+        "teamA": "Belgium",
+        "codeA": "be",
+        "teamB": "Egypt",
+        "codeB": "eg"
+    },
+    {
+        "id": "m15",
+        "round": "Round 1 (Matchday 1)",
+        "date": "16 Jun 2026",
+        "time": "05:00",
+        "teamA": "Saudi Arabia",
+        "codeA": "sa",
+        "teamB": "Uruguay",
+        "codeB": "uy"
+    },
+    {
+        "id": "m16",
+        "round": "Round 1 (Matchday 1)",
+        "date": "16 Jun 2026",
+        "time": "08:00",
+        "teamA": "Iran",
+        "codeA": "ir",
+        "teamB": "New Zealand",
+        "codeB": "nz"
+    },
+    {
+        "id": "m17",
+        "round": "Round 1 (Matchday 1)",
+        "date": "17 Jun 2026",
+        "time": "02:00",
+        "teamA": "France",
+        "codeA": "fr",
+        "teamB": "Senegal",
+        "codeB": "sn"
+    },
+    {
+        "id": "m18",
+        "round": "Round 1 (Matchday 1)",
+        "date": "17 Jun 2026",
+        "time": "05:00",
+        "teamA": "Iraq",
+        "codeA": "iq",
+        "teamB": "Norway",
+        "codeB": "no"
+    },
+    {
+        "id": "m19",
+        "round": "Round 1 (Matchday 1)",
+        "date": "17 Jun 2026",
+        "time": "08:00",
+        "teamA": "Argentina",
+        "codeA": "ar",
+        "teamB": "Algeria",
+        "codeB": "dz"
+    },
+    {
+        "id": "m20",
+        "round": "Round 1 (Matchday 1)",
+        "date": "17 Jun 2026",
+        "time": "11:00",
+        "teamA": "Austria",
+        "codeA": "at",
+        "teamB": "Jordan",
+        "codeB": "jo"
+    },
+    {
+        "id": "m21",
+        "round": "Round 1 (Matchday 1)",
+        "date": "18 Jun 2026",
+        "time": "00:00",
+        "teamA": "Portugal",
+        "codeA": "pt",
+        "teamB": "Congo DR",
+        "codeB": "cd"
+    },
+    {
+        "id": "m22",
+        "round": "Round 1 (Matchday 1)",
+        "date": "18 Jun 2026",
+        "time": "03:00",
+        "teamA": "England",
+        "codeA": "gb-eng",
+        "teamB": "Croatia",
+        "codeB": "hr"
+    },
+    {
+        "id": "m23",
+        "round": "Round 1 (Matchday 1)",
+        "date": "18 Jun 2026",
+        "time": "06:00",
+        "teamA": "Ghana",
+        "codeA": "gh",
+        "teamB": "Panama",
+        "codeB": "pa"
+    },
+    {
+        "id": "m24",
+        "round": "Round 1 (Matchday 1)",
+        "date": "18 Jun 2026",
+        "time": "09:00",
+        "teamA": "Uzbekistan",
+        "codeA": "uz",
+        "teamB": "Colombia",
+        "codeB": "co"
+    },
+    {
+        "id": "m25",
+        "round": "Round 2 (Matchday 2)",
+        "date": "18 Jun 2026",
+        "time": "23:00",
+        "teamA": "Czechia",
+        "codeA": "cz",
+        "teamB": "South Africa",
+        "codeB": "za"
+    },
+    {
+        "id": "m26",
+        "round": "Round 2 (Matchday 2)",
+        "date": "19 Jun 2026",
+        "time": "02:00",
+        "teamA": "Switzerland",
+        "codeA": "ch",
+        "teamB": "Bosnia and Herzegovina",
+        "codeB": "ba"
+    },
+    {
+        "id": "m27",
+        "round": "Round 2 (Matchday 2)",
+        "date": "19 Jun 2026",
+        "time": "05:00",
+        "teamA": "Canada",
+        "codeA": "ca",
+        "teamB": "Qatar",
+        "codeB": "qa"
+    },
+    {
+        "id": "m28",
+        "round": "Round 2 (Matchday 2)",
+        "date": "19 Jun 2026",
+        "time": "08:00",
+        "teamA": "Mexico",
+        "codeA": "mx",
+        "teamB": "South Korea",
+        "codeB": "kr"
+    },
+    {
+        "id": "m29",
+        "round": "Round 2 (Matchday 2)",
+        "date": "20 Jun 2026",
+        "time": "02:00",
+        "teamA": "USA",
+        "codeA": "us",
+        "teamB": "Australia",
+        "codeB": "au"
+    },
+    {
+        "id": "m30",
+        "round": "Round 2 (Matchday 2)",
+        "date": "20 Jun 2026",
+        "time": "05:00",
+        "teamA": "Scotland",
+        "codeA": "gb-sct",
+        "teamB": "Morocco",
+        "codeB": "ma"
+    },
+    {
+        "id": "m31",
+        "round": "Round 2 (Matchday 2)",
+        "date": "20 Jun 2026",
+        "time": "07:30",
+        "teamA": "Brazil",
+        "codeA": "br",
+        "teamB": "Haiti",
+        "codeB": "ht"
+    },
+    {
+        "id": "m32",
+        "round": "Round 2 (Matchday 2)",
+        "date": "20 Jun 2026",
+        "time": "11:00",
+        "teamA": "T\u00fcrkiye",
+        "codeA": "tr",
+        "teamB": "Paraguay",
+        "codeB": "py"
+    },
+    {
+        "id": "m33",
+        "round": "Round 2 (Matchday 2)",
+        "date": "21 Jun 2026",
+        "time": "00:00",
+        "teamA": "Netherlands",
+        "codeA": "nl",
+        "teamB": "Sweden",
+        "codeB": "se"
+    },
+    {
+        "id": "m34",
+        "round": "Round 2 (Matchday 2)",
+        "date": "21 Jun 2026",
+        "time": "03:00",
+        "teamA": "Germany",
+        "codeA": "de",
+        "teamB": "Ivory Coast",
+        "codeB": "ci"
+    },
+    {
+        "id": "m35",
+        "round": "Round 2 (Matchday 2)",
+        "date": "21 Jun 2026",
+        "time": "07:00",
+        "teamA": "Ecuador",
+        "codeA": "ec",
+        "teamB": "Cura\u00e7ao",
+        "codeB": "cw"
+    },
+    {
+        "id": "m36",
+        "round": "Round 2 (Matchday 2)",
+        "date": "21 Jun 2026",
+        "time": "11:00",
+        "teamA": "Tunisia",
+        "codeA": "tn",
+        "teamB": "Japan",
+        "codeB": "jp"
+    },
+    {
+        "id": "m37",
+        "round": "Round 2 (Matchday 2)",
+        "date": "21 Jun 2026",
+        "time": "23:00",
+        "teamA": "Spain",
+        "codeA": "es",
+        "teamB": "Saudi Arabia",
+        "codeB": "sa"
+    },
+    {
+        "id": "m38",
+        "round": "Round 2 (Matchday 2)",
+        "date": "22 Jun 2026",
+        "time": "02:00",
+        "teamA": "Belgium",
+        "codeA": "be",
+        "teamB": "Iran",
+        "codeB": "ir"
+    },
+    {
+        "id": "m39",
+        "round": "Round 2 (Matchday 2)",
+        "date": "22 Jun 2026",
+        "time": "05:00",
+        "teamA": "Uruguay",
+        "codeA": "uy",
+        "teamB": "Cape Verde",
+        "codeB": "cv"
+    },
+    {
+        "id": "m40",
+        "round": "Round 2 (Matchday 2)",
+        "date": "22 Jun 2026",
+        "time": "08:00",
+        "teamA": "New Zealand",
+        "codeA": "nz",
+        "teamB": "Egypt",
+        "codeB": "eg"
+    },
+    {
+        "id": "m41",
+        "round": "Round 2 (Matchday 2)",
+        "date": "23 Jun 2026",
+        "time": "00:00",
+        "teamA": "Argentina",
+        "codeA": "ar",
+        "teamB": "Austria",
+        "codeB": "at"
+    },
+    {
+        "id": "m42",
+        "round": "Round 2 (Matchday 2)",
+        "date": "23 Jun 2026",
+        "time": "04:00",
+        "teamA": "France",
+        "codeA": "fr",
+        "teamB": "Iraq",
+        "codeB": "iq"
+    },
+    {
+        "id": "m43",
+        "round": "Round 2 (Matchday 2)",
+        "date": "23 Jun 2026",
+        "time": "07:00",
+        "teamA": "Norway",
+        "codeA": "no",
+        "teamB": "Senegal",
+        "codeB": "sn"
+    },
+    {
+        "id": "m44",
+        "round": "Round 2 (Matchday 2)",
+        "date": "23 Jun 2026",
+        "time": "10:00",
+        "teamA": "Jordan",
+        "codeA": "jo",
+        "teamB": "Algeria",
+        "codeB": "dz"
+    },
+    {
+        "id": "m45",
+        "round": "Round 2 (Matchday 2)",
+        "date": "24 Jun 2026",
+        "time": "00:00",
+        "teamA": "Portugal",
+        "codeA": "pt",
+        "teamB": "Uzbekistan",
+        "codeB": "uz"
+    },
+    {
+        "id": "m46",
+        "round": "Round 2 (Matchday 2)",
+        "date": "24 Jun 2026",
+        "time": "03:00",
+        "teamA": "England",
+        "codeA": "gb-eng",
+        "teamB": "Ghana",
+        "codeB": "gh"
+    },
+    {
+        "id": "m47",
+        "round": "Round 2 (Matchday 2)",
+        "date": "24 Jun 2026",
+        "time": "06:00",
+        "teamA": "Panama",
+        "codeA": "pa",
+        "teamB": "Croatia",
+        "codeB": "hr"
+    },
+    {
+        "id": "m48",
+        "round": "Round 2 (Matchday 2)",
+        "date": "24 Jun 2026",
+        "time": "09:00",
+        "teamA": "Colombia",
+        "codeA": "co",
+        "teamB": "Congo DR",
+        "codeB": "cd"
+    },
+    {
+        "id": "m49",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "02:00",
+        "teamA": "Bosnia and Herzegovina",
+        "codeA": "ba",
+        "teamB": "Qatar",
+        "codeB": "qa"
+    },
+    {
+        "id": "m50",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "02:00",
+        "teamA": "Switzerland",
+        "codeA": "ch",
+        "teamB": "Canada",
+        "codeB": "ca"
+    },
+    {
+        "id": "m51",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "05:00",
+        "teamA": "Morocco",
+        "codeA": "ma",
+        "teamB": "Haiti",
+        "codeB": "ht"
+    },
+    {
+        "id": "m52",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "05:00",
+        "teamA": "Scotland",
+        "codeA": "gb-sct",
+        "teamB": "Brazil",
+        "codeB": "br"
+    },
+    {
+        "id": "m53",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "08:00",
+        "teamA": "Czechia",
+        "codeA": "cz",
+        "teamB": "Mexico",
+        "codeB": "mx"
+    },
+    {
+        "id": "m54",
+        "round": "Round 3 (Matchday 3)",
+        "date": "25 Jun 2026",
+        "time": "08:00",
+        "teamA": "South Africa",
+        "codeA": "za",
+        "teamB": "South Korea",
+        "codeB": "kr"
+    },
+    {
+        "id": "m55",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "03:00",
+        "teamA": "Cura\u00e7ao",
+        "codeA": "cw",
+        "teamB": "Ivory Coast",
+        "codeB": "ci"
+    },
+    {
+        "id": "m56",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "03:00",
+        "teamA": "Ecuador",
+        "codeA": "ec",
+        "teamB": "Germany",
+        "codeB": "de"
+    },
+    {
+        "id": "m57",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "06:00",
+        "teamA": "Japan",
+        "codeA": "jp",
+        "teamB": "Sweden",
+        "codeB": "se"
+    },
+    {
+        "id": "m58",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "06:00",
+        "teamA": "Tunisia",
+        "codeA": "tn",
+        "teamB": "Netherlands",
+        "codeB": "nl"
+    },
+    {
+        "id": "m59",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "09:00",
+        "teamA": "Paraguay",
+        "codeA": "py",
+        "teamB": "Australia",
+        "codeB": "au"
+    },
+    {
+        "id": "m60",
+        "round": "Round 3 (Matchday 3)",
+        "date": "26 Jun 2026",
+        "time": "09:00",
+        "teamA": "T\u00fcrkiye",
+        "codeA": "tr",
+        "teamB": "USA",
+        "codeB": "us"
+    },
+    {
+        "id": "m61",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "02:00",
+        "teamA": "Norway",
+        "codeA": "no",
+        "teamB": "France",
+        "codeB": "fr"
+    },
+    {
+        "id": "m62",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "02:00",
+        "teamA": "Senegal",
+        "codeA": "sn",
+        "teamB": "Iraq",
+        "codeB": "iq"
+    },
+    {
+        "id": "m63",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "07:00",
+        "teamA": "Cape Verde",
+        "codeA": "cv",
+        "teamB": "Saudi Arabia",
+        "codeB": "sa"
+    },
+    {
+        "id": "m64",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "07:00",
+        "teamA": "Uruguay",
+        "codeA": "uy",
+        "teamB": "Spain",
+        "codeB": "es"
+    },
+    {
+        "id": "m65",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "10:00",
+        "teamA": "Egypt",
+        "codeA": "eg",
+        "teamB": "Iran",
+        "codeB": "ir"
+    },
+    {
+        "id": "m66",
+        "round": "Round 3 (Matchday 3)",
+        "date": "27 Jun 2026",
+        "time": "10:00",
+        "teamA": "New Zealand",
+        "codeA": "nz",
+        "teamB": "Belgium",
+        "codeB": "be"
+    },
+    {
+        "id": "m67",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "04:00",
+        "teamA": "Croatia",
+        "codeA": "hr",
+        "teamB": "Ghana",
+        "codeB": "gh"
+    },
+    {
+        "id": "m68",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "04:00",
+        "teamA": "Panama",
+        "codeA": "pa",
+        "teamB": "England",
+        "codeB": "gb-eng"
+    },
+    {
+        "id": "m69",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "06:30",
+        "teamA": "Colombia",
+        "codeA": "co",
+        "teamB": "Portugal",
+        "codeB": "pt"
+    },
+    {
+        "id": "m70",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "06:30",
+        "teamA": "Congo DR",
+        "codeA": "cd",
+        "teamB": "Uzbekistan",
+        "codeB": "uz"
+    },
+    {
+        "id": "m71",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "09:00",
+        "teamA": "Algeria",
+        "codeA": "dz",
+        "teamB": "Austria",
+        "codeB": "at"
+    },
+    {
+        "id": "m72",
+        "round": "Round 3 (Matchday 3)",
+        "date": "28 Jun 2026",
+        "time": "09:00",
+        "teamA": "Jordan",
+        "codeA": "jo",
+        "teamB": "Argentina",
+        "codeB": "ar"
+    },
+    {
+        "id": "m73",
+        "round": "Round of 32",
+        "date": "29 Jun 2026",
+        "time": "02:00",
+        "teamA": "Runner-up Group A",
+        "codeA": "xx",
+        "teamB": "Runner-up Group B",
+        "codeB": "xx"
+    },
+    {
+        "id": "m74",
+        "round": "Round of 32",
+        "date": "29 Jun 2026",
+        "time": "24:00",
+        "teamA": "Winner Group C",
+        "codeA": "xx",
+        "teamB": "Runner-up",
+        "codeB": "xx"
+    },
+    {
+        "id": "m75",
+        "round": "Round of 32",
+        "date": "30 Jun 2026",
+        "time": "03:30",
+        "teamA": "Winner Group E",
+        "codeA": "xx",
+        "teamB": "3rd Best (A/B/C/D/F)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m76",
+        "round": "Round of 32",
+        "date": "30 Jun 2026",
+        "time": "08:00",
+        "teamA": "Winner Group F",
+        "codeA": "xx",
+        "teamB": "Runner-up Group C",
+        "codeB": "xx"
+    },
+    {
+        "id": "m77",
+        "round": "Round of 32",
+        "date": "1 Jul 2026",
+        "time": "00:00",
+        "teamA": "Runner-up Group E",
+        "codeA": "xx",
+        "teamB": "Runner-up Group I",
+        "codeB": "xx"
+    },
+    {
+        "id": "m78",
+        "round": "Round of 32",
+        "date": "1 Jul 2026",
+        "time": "04:00",
+        "teamA": "Winner Group I",
+        "codeA": "xx",
+        "teamB": "3rd Best (C/D/F/G/H)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m79",
+        "round": "Round of 32",
+        "date": "1 Jul 2026",
+        "time": "08:00",
+        "teamA": "Winner Group A",
+        "codeA": "xx",
+        "teamB": "3rd Best (C/E/F/H/I)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m80",
+        "round": "Round of 32",
+        "date": "1 Jul 2026",
+        "time": "23:00",
+        "teamA": "Winner Group L",
+        "codeA": "xx",
+        "teamB": "3rd Best (E/H/I/J/K) |",
+        "codeB": "xx"
+    },
+    {
+        "id": "m81",
+        "round": "Round of 32",
+        "date": "2 Jul 2026",
+        "time": "03:00",
+        "teamA": "Winner Group G",
+        "codeA": "xx",
+        "teamB": "3rd Best (E/H/I/J/K)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m82",
+        "round": "Round of 32",
+        "date": "2 Jul 2026",
+        "time": "07:00",
+        "teamA": "Winner Group D",
+        "codeA": "xx",
+        "teamB": "3rd Best (B/E/F/I/J)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m83",
+        "round": "Round of 32",
+        "date": "3 Jul 2026",
+        "time": "02:00",
+        "teamA": "Winner Group H",
+        "codeA": "xx",
+        "teamB": "Runner-up Group J",
+        "codeB": "xx"
+    },
+    {
+        "id": "m84",
+        "round": "Round of 32",
+        "date": "3 Jul 2026",
+        "time": "06:00",
+        "teamA": "Runner-up Group K",
+        "codeA": "xx",
+        "teamB": "Runner-up Group L",
+        "codeB": "xx"
+    },
+    {
+        "id": "m85",
+        "round": "Round of 32",
+        "date": "3 Jul 2026",
+        "time": "10:00",
+        "teamA": "Winner Group B",
+        "codeA": "xx",
+        "teamB": "3rd Best (E/F/G/I/J)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m86",
+        "round": "Round of 32",
+        "date": "4 Jul 2026",
+        "time": "01:00",
+        "teamA": "Runner-up Group D",
+        "codeA": "xx",
+        "teamB": "Runner-up Group G",
+        "codeB": "xx"
+    },
+    {
+        "id": "m87",
+        "round": "Round of 32",
+        "date": "4 Jul 2026",
+        "time": "05:00",
+        "teamA": "Winner Group J",
+        "codeA": "xx",
+        "teamB": "Runner-up Group H",
+        "codeB": "xx"
+    },
+    {
+        "id": "m88",
+        "round": "Round of 32",
+        "date": "4 Jul 2026",
+        "time": "08:30",
+        "teamA": "Winner Group K",
+        "codeA": "xx",
+        "teamB": "3rd Best (D/E/I/J/L)",
+        "codeB": "xx"
+    },
+    {
+        "id": "m89",
+        "round": "Round of 16",
+        "date": "5 Jul 2026",
+        "time": "00:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m90",
+        "round": "Round of 16",
+        "date": "5 Jul 2026",
+        "time": "04:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m91",
+        "round": "Round of 16",
+        "date": "6 Jul 2026",
+        "time": "03:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m92",
+        "round": "Round of 16",
+        "date": "6 Jul 2026",
+        "time": "07:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m93",
+        "round": "Round of 16",
+        "date": "7 Jul 2026",
+        "time": "02:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m94",
+        "round": "Round of 16",
+        "date": "7 Jul 2026",
+        "time": "07:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m95",
+        "round": "Round of 16",
+        "date": "7 Jul 2026",
+        "time": "23:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m96",
+        "round": "Round of 16",
+        "date": "8 Jul 2026",
+        "time": "03:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m97",
+        "round": "Quarter-Finals",
+        "date": "10 Jul 2026",
+        "time": "03:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m98",
+        "round": "Quarter-Finals",
+        "date": "11 Jul 2026",
+        "time": "02:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m99",
+        "round": "Quarter-Finals",
+        "date": "11 Jul 2026",
+        "time": "04:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m100",
+        "round": "Quarter-Finals",
+        "date": "12 Jul 2026",
+        "time": "08:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m101",
+        "round": "Semi-Finals",
+        "date": "15 Jul 2026",
+        "time": "02:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m102",
+        "round": "Semi-Finals",
+        "date": "16 Jul 2026",
+        "time": "02:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m103",
+        "round": "Finals",
+        "date": "19 Jul 2026",
+        "time": "04:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    },
+    {
+        "id": "m104",
+        "round": "Finals",
+        "date": "20 Jul 2026",
+        "time": "02:00",
+        "teamA": "TBC",
+        "codeA": "xx",
+        "teamB": "TBC",
+        "codeB": "xx"
+    }
+]

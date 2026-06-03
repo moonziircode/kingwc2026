@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Hub - King Gambler WC 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <nav class="top-nav">
+        <div class="nav-brand">KING GAMBLER</div>
+        <div class="nav-user">
+            <span id="player-nickname">Player</span>
+            <button id="btn-logout" class="btn-text">Exit</button>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <h1 id="league-name-display">My League</h1>
+            
+            <div class="tabs">
+                <button class="tab-btn" data-target="leaderboard">Leaderboard</button>
+                <button class="tab-btn active" data-target="predictions">Make Predictions</button>
+                <button class="tab-btn" data-target="chat">Chat</button>
+            </div>
+        </header>
+
+        <div class="tab-content hidden" id="tab-leaderboard">
+            <div class="table-responsive">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Peringkat</th>
+                            <th>Nama Pemain</th>
+                            <th>Total Poin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank gold">1</span></td>
+                            <td>Alex</td>
+                            <td class="points">15</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank silver">2</span></td>
+                            <td>Budi</td>
+                            <td class="points">12</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank bronze">3</span></td>
+                            <td>Citra</td>
+                            <td class="points">8</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-content active" id="tab-predictions">
+            <div id="host-mode-container" class="hidden" style="margin-bottom: 1.5rem; text-align: center; background: rgba(255, 215, 0, 0.1); border: 1px dashed rgba(255, 215, 0, 0.3); padding: 0.8rem; border-radius: 8px; max-width: 400px; margin: 0 auto 1.5rem;">
+                <label class="switch-label" style="color: var(--gold); font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; user-select: none;">
+                    <input type="checkbox" id="host-mode-toggle" style="width: 18px; height: 18px; cursor: pointer;">
+                    Input Skor Aktual (Host Mode)
+                </label>
+                <button id="btn-simulate-tournament" class="btn secondary shiny-btn" style="width: auto; padding: 0.5rem 1rem; font-size: 0.85rem; margin-top: 0.5rem; display: block; margin-left: auto; margin-right: auto; border-color: rgba(0, 255, 135, 0.4);">
+                    ⚡ Simulasikan Seluruh Turnamen (Demo)
+                </button>
+            </div>
+            
+            <div class="filter-controls" style="margin-bottom: 2rem; text-align: center; display: flex; justify-content: center; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                <div>
+                    <label for="round-filter" style="color: var(--text-muted); margin-right: 0.5rem; font-weight: 600;">Pilih Fase:</label>
+                    <select id="round-filter" class="form-select">
+                        <option value="all">Semua Pertandingan</option>
+                    </select>
+                </div>
+                <button id="btn-sync-scores" class="btn secondary shiny-btn" style="width: auto; padding: 0.6rem 1rem; margin: 0; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem; height: 38px;">
+                    🔄 Sync Skor Aktual
+                </button>
+            </div>
+            <div class="predictions-grid" id="matches-container">
+                <!-- Matches will be injected here by JS -->
+            </div>
+            <button class="btn primary w-full mt-4" id="btn-save-predictions" style="max-width: 400px; display: block; margin: 2rem auto;">Save Predictions</button>
+        </div>
+
+        <div class="tab-content hidden" id="tab-chat">
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages-container">
+                    <!-- Chat messages injected by JS -->
+                </div>
+                <form id="chat-form" class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Tulis pesan ke liga..." required autocomplete="off">
+                    <button type="submit" class="btn primary shiny-btn" style="width: auto; padding: 0 1.5rem; margin: 0;">Kirim</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="matches.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
