@@ -136,21 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!leagueData) {
-                // Auto-create a mock league if it doesn't exist to prevent getting stuck
-                leagueData = {
-                    leagueCode: leagueCode,
-                    leagueName: `Liga ${leagueCode}`,
-                    hostPlayerCode: "MOCKHOST1234",
-                    actualScores: {},
-                    chatMessages: [
-                        { sender: "System", message: `Liga "${leagueCode}" diinisialisasi otomatis!`, time: new Date().toISOString() },
-                        { sender: "Budi", message: "Yuk main!", time: new Date().toISOString() }
-                    ],
-                    players: [
-                        { playerCode: "MOCKHOST1234", nickname: "Rian (Host)", isHost: true, predictions: generateMockPredictions(), points: 0 },
-                        { playerCode: "MOCKBUDI1234", nickname: "Budi", isHost: false, predictions: generateMockPredictions(), points: 0 }
-                    ]
-                };
+                alert("Kode liga tidak ditemukan di perangkat ini. Karena aplikasi belum memiliki database server (masih menggunakan penyimpanan lokal browser), Anda hanya bisa bergabung dengan liga yang dibuat di perangkat/browser yang sama.");
+                return;
             }
 
             // Add new player
