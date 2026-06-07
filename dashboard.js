@@ -1,9 +1,12 @@
+import { doc, getDoc, updateDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { db } from "./firebase-config.js";
+
 window.onerror = function(message, source, lineno, colno, error) {
     alert("JS Error: " + message + " on line " + lineno + "\nSource: " + source);
     return false;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Check login state
     const playerCode = localStorage.getItem('kg_player_code');
     if (!playerCode) {
@@ -11,40 +14,59 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Load league data
     let leagueCode = localStorage.getItem('kg_current_league_code');
-    let leagueData = null;
-    if (leagueCode) {
-        leagueData = JSON.parse(localStorage.getItem(`kg_league_${leagueCode}`));
-    }
-    
-    // Fallback search league by playerCode if current league code is missing
-    if (!leagueData && playerCode) {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key.startsWith('kg_league_')) {
-                try {
-                    const data = JSON.parse(localStorage.getItem(key));
-                    if (data.players.some(p => p.playerCode === playerCode)) {
-                        leagueData = data;
-                        leagueCode = data.leagueCode;
-                        localStorage.setItem('kg_current_league_code', leagueCode);
-                        break;
-                    }
-                } catch (e) {
-                    console.error("Error reading league storage key:", key, e);
-                }
-            }
-        }
-    }
-
-    if (!leagueData) {
+    if (!leagueCode) {
         window.location.href = 'index.html';
         return;
     }
 
-    // Find current player
-    const currentPlayer = leagueData.players.find(p => p.playerCode === playerCode);
+    let leagueData = null;
+    let currentPlayer = null;
+    let isHostModeActive = false;
+
+    // We will initialize the rest inside the onSnapshot listener.
+    const docRef = doc(db, "leagues", leagueCode);
+
+    // Initial fetch to make sure league exists
+    try {
+        const snap = await getDoc(docRef);
+        if (!snap.exists()) {
+            window.location.href = 'index.html';
+            return;
+        }
+        leagueData = snap.data();
+    } catch (e) {
+        console.error("Failed to load league data", e);
+        return;
+    }
+
+    const docRef = doc(db, "leagues", leagueCode);
+
+    onSnapshot(docRef, (docSnap) => {
+        if (!docSnap.exists()) return;
+        leagueData = docSnap.data();
+        currentPlayer = leagueData.players.find(p => p.playerCode === playerCode);
+        if (!currentPlayer) return;
+
+        document.getElementById('player-nickname').textContent = currentPlayer.nickname;
+        document.getElementById('league-name-display').textContent = leagueData.leagueName;
+        
+        if (playerCode === leagueData.hostPlayerCode) {
+            document.getElementById('host-mode-container').classList.remove('hidden');
+        }
+
+        if (allMatches.length > 0) {
+            const filterSelect = document.getElementById('round-filter');
+            const roundFilter = filterSelect ? filterSelect.value : 'all';
+            const filtered = roundFilter === 'all' ? allMatches : allMatches.filter(m => m.round.includes(roundFilter));
+            renderMatches(filtered);
+            renderLeaderboard();
+            renderChat();
+        }
+    });
+
+    // Find current player (removed from original)
+
     if (!currentPlayer) {
         window.location.href = 'index.html';
         return;
@@ -377,6 +399,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
+            // Check if match is locked (passed kick-off time)
+            // Assuming match times are in WIB (GMT+0700)
+            const matchDateTimeStr = `${match.date} ${match.time} GMT+0700`;
+            const matchStartTime = new Date(matchDateTimeStr).getTime();
+            const isLocked = Date.now() > matchStartTime;
+            const disabledAttr = isLocked ? 'disabled' : '';
+            const lockedText = isLocked ? '<div style="text-align:center; font-size: 0.75rem; color: var(--danger); margin-top: 0.5rem;">🔒 Waktu prediksi habis</div>' : '';
+
             // Input fields layout
             let scoreInputsHtml = '';
             if (isHostModeActive) {
@@ -404,10 +434,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 scoreInputsHtml = `
                     <div class="score-inputs">
-                        <input type="number" min="0" max="25" class="score-input pred-score-input" data-match="${match.id}" data-team="A" placeholder="-" value="${predA}">
+                        <input type="number" min="0" max="25" class="score-input pred-score-input" data-match="${match.id}" data-team="A" placeholder="-" value="${predA}" ${disabledAttr}>
                         <span class="dash">-</span>
-                        <input type="number" min="0" max="25" class="score-input pred-score-input" data-match="${match.id}" data-team="B" placeholder="-" value="${predB}">
+                        <input type="number" min="0" max="25" class="score-input pred-score-input" data-match="${match.id}" data-team="B" placeholder="-" value="${predB}" ${disabledAttr}>
                     </div>
+                    ${lockedText}
                 `;
             }
 
@@ -538,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 resetAndRecalculateKnockout();
                 calculateAllPlayerPoints();
                 
-                localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
+                await updateDoc(docRef, { players: leagueData.players, actualScores: leagueData.actualScores, chatMessages: leagueData.chatMessages });
                 
                 renderMatches(allMatches);
                 renderLeaderboard();
@@ -610,7 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resetAndRecalculateKnockout();
             calculateAllPlayerPoints();
 
-            localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
+            await updateDoc(docRef, { players: leagueData.players, actualScores: leagueData.actualScores, chatMessages: leagueData.chatMessages });
             renderMatches(allMatches);
             renderLeaderboard();
         } else {
@@ -634,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
+                await updateDoc(docRef, { players: leagueData.players, actualScores: leagueData.actualScores, chatMessages: leagueData.chatMessages });
                 renderLeaderboard();
             }
         }
@@ -733,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         leagueData.chatMessages.push(botMsg);
-        localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
+        await updateDoc(docRef, { players: leagueData.players, actualScores: leagueData.actualScores, chatMessages: leagueData.chatMessages });
         renderChat();
     };
 
@@ -751,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             leagueData.chatMessages.push(newMsg);
-            localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
+            await updateDoc(docRef, { players: leagueData.players, actualScores: leagueData.actualScores, chatMessages: leagueData.chatMessages });
             chatInput.value = '';
             renderChat();
 

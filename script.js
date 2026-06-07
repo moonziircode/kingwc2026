@@ -1,3 +1,6 @@
+import { doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { db } from "./firebase-config.js";
+
 window.onerror = function(message, source, lineno, colno, error) {
     alert("JS Error: " + message + " on line " + lineno + "\nSource: " + source);
     return false;
@@ -27,13 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btnJoinLeague.addEventListener('click', () => dialogJoin.showModal());
     linkContinue.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // Check if player code already in local storage
         const savedCode = localStorage.getItem('kg_player_code');
         if(savedCode) {
             document.getElementById('continue-player-code').value = savedCode;
         }
-        
         dialogContinue.showModal();
     });
 
@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Generate random alphanumeric code
     const generateCode = (length) => {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
@@ -55,149 +54,148 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     };
 
-    // Save player code
     const savePlayerCode = (code) => {
         localStorage.setItem('kg_player_code', code);
     };
 
-    // Helper to generate mock predictions for 72 group matches
-    const generateMockPredictions = () => {
-        const preds = {};
-        for (let i = 1; i <= 72; i++) {
-            preds[`m${i}`] = {
-                A: Math.floor(Math.random() * 4), // 0-3 goals
-                B: Math.floor(Math.random() * 4)  // 0-3 goals
-            };
-        }
-        return preds;
+    const showLoading = (btn) => {
+        btn.disabled = true;
+        btn.dataset.originalText = btn.textContent;
+        btn.textContent = "Loading...";
+    };
+
+    const hideLoading = (btn) => {
+        btn.disabled = false;
+        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
     };
 
     // Handle Create League Submit
-    formCreate.addEventListener('submit', (e) => {
+    formCreate.addEventListener('submit', async (e) => {
         e.preventDefault();
         const leagueName = document.getElementById('create-league-name').value;
         const nickname = document.getElementById('create-nickname').value;
+        const btnSubmit = formCreate.querySelector('button[type="submit"]');
 
         if (leagueName && nickname) {
+            showLoading(btnSubmit);
             const leagueCode = generateCode(6);
             const playerCode = generateCode(12);
 
-            // Initialize league data with mock players
             const leagueData = {
                 leagueCode: leagueCode,
                 leagueName: leagueName,
                 hostPlayerCode: playerCode,
                 actualScores: {},
                 chatMessages: [
-                    { sender: "System", message: `Liga "${leagueName}" berhasil dibuat! Bagikan kode liga ${leagueCode} ke teman-temanmu.`, time: new Date().toISOString() },
-                    { sender: "Budi", message: "Halo guys! Siap mengalahkan kalian semua 😎", time: new Date().toISOString() },
-                    { sender: "Citra", message: "Gua udah isi prediksi, moga-moga menang deh haha", time: new Date().toISOString() }
+                    { sender: "System", message: `Liga "${leagueName}" berhasil dibuat! Bagikan kode liga ${leagueCode} ke teman-temanmu.`, time: new Date().toISOString() }
                 ],
+                playerCodes: [playerCode], // For querying
                 players: [
-                    { playerCode: playerCode, nickname: nickname, isHost: true, predictions: {}, points: 0 },
-                    { playerCode: "MOCKBUDI1234", nickname: "Budi", isHost: false, predictions: generateMockPredictions(), points: 0 },
-                    { playerCode: "MOCKCITRA567", nickname: "Citra", isHost: false, predictions: generateMockPredictions(), points: 0 },
-                    { playerCode: "MOCKDONI8910", nickname: "Doni", isHost: false, predictions: generateMockPredictions(), points: 0 }
+                    { playerCode: playerCode, nickname: nickname, isHost: true, predictions: {}, points: 0 }
                 ]
             };
 
-            localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
-            localStorage.setItem('kg_current_league_code', leagueCode);
-            savePlayerCode(playerCode);
+            try {
+                await setDoc(doc(db, "leagues", leagueCode), leagueData);
+                localStorage.setItem('kg_current_league_code', leagueCode);
+                savePlayerCode(playerCode);
 
-            // Hide form, show result
-            formCreate.classList.add('hidden');
-            const resultBox = document.getElementById('create-result');
-            resultBox.classList.remove('hidden');
-
-            document.getElementById('display-league-code').textContent = leagueCode;
-            document.getElementById('display-player-code-create').textContent = playerCode;
+                formCreate.classList.add('hidden');
+                document.getElementById('create-result').classList.remove('hidden');
+                document.getElementById('display-league-code').textContent = leagueCode;
+                document.getElementById('display-player-code-create').textContent = playerCode;
+            } catch (error) {
+                console.error("Error creating league:", error);
+                alert("Gagal membuat liga. Coba lagi.");
+            } finally {
+                hideLoading(btnSubmit);
+            }
         }
     });
 
     // Handle Join League Submit
-    formJoin.addEventListener('submit', (e) => {
+    formJoin.addEventListener('submit', async (e) => {
         e.preventDefault();
         const leagueCode = document.getElementById('join-league-code').value.toUpperCase();
         const nickname = document.getElementById('join-nickname').value;
+        const btnSubmit = formJoin.querySelector('button[type="submit"]');
 
         if (leagueCode && nickname) {
+            showLoading(btnSubmit);
             const playerCode = generateCode(12);
-            let leagueData = null;
 
-            // Try to load existing league
-            const rawLeague = localStorage.getItem(`kg_league_${leagueCode}`);
-            if (rawLeague) {
-                try {
-                    leagueData = JSON.parse(rawLeague);
-                } catch (err) {
-                    console.error("Error parsing league:", err);
+            try {
+                const docRef = doc(db, "leagues", leagueCode);
+                const snap = await getDoc(docRef);
+
+                if (!snap.exists()) {
+                    alert("Kode liga tidak ditemukan di server. Periksa kembali kodenya.");
+                    hideLoading(btnSubmit);
+                    return;
                 }
+
+                const newPlayer = {
+                    playerCode: playerCode,
+                    nickname: nickname,
+                    isHost: false,
+                    predictions: {},
+                    points: 0
+                };
+
+                const joinMsg = {
+                    sender: "System",
+                    message: `${nickname} telah bergabung ke dalam liga! 👋`,
+                    time: new Date().toISOString()
+                };
+
+                await updateDoc(docRef, {
+                    players: arrayUnion(newPlayer),
+                    playerCodes: arrayUnion(playerCode),
+                    chatMessages: arrayUnion(joinMsg)
+                });
+
+                localStorage.setItem('kg_current_league_code', leagueCode);
+                savePlayerCode(playerCode);
+
+                formJoin.classList.add('hidden');
+                document.getElementById('join-result').classList.remove('hidden');
+                document.getElementById('display-player-code-join').textContent = playerCode;
+
+            } catch (error) {
+                console.error("Error joining league:", error);
+                alert("Gagal bergabung ke liga.");
+            } finally {
+                hideLoading(btnSubmit);
             }
-
-            if (!leagueData) {
-                alert("Kode liga tidak ditemukan di perangkat ini. Karena aplikasi belum memiliki database server (masih menggunakan penyimpanan lokal browser), Anda hanya bisa bergabung dengan liga yang dibuat di perangkat/browser yang sama.");
-                return;
-            }
-
-            // Add new player
-            leagueData.players.push({
-                playerCode: playerCode,
-                nickname: nickname,
-                isHost: false,
-                predictions: {},
-                points: 0
-            });
-
-            // Add joining chat message
-            leagueData.chatMessages.push({
-                sender: "System",
-                message: `${nickname} telah bergabung ke dalam liga! 👋`,
-                time: new Date().toISOString()
-            });
-
-            localStorage.setItem(`kg_league_${leagueCode}`, JSON.stringify(leagueData));
-            localStorage.setItem('kg_current_league_code', leagueCode);
-            savePlayerCode(playerCode);
-
-            // Hide form, show result
-            formJoin.classList.add('hidden');
-            const resultBox = document.getElementById('join-result');
-            resultBox.classList.remove('hidden');
-
-            document.getElementById('display-player-code-join').textContent = playerCode;
         }
     });
 
     // Handle Continue Submit
-    formContinue.addEventListener('submit', (e) => {
+    formContinue.addEventListener('submit', async (e) => {
         e.preventDefault();
         const playerCode = document.getElementById('continue-player-code').value.toUpperCase();
+        const btnSubmit = formContinue.querySelector('button[type="submit"]');
         
         if (playerCode) {
-            let foundLeague = null;
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('kg_league_')) {
-                    try {
-                        const lData = JSON.parse(localStorage.getItem(key));
-                        if (lData.players.some(p => p.playerCode === playerCode)) {
-                            foundLeague = lData.leagueCode;
-                            break;
-                        }
-                    } catch(err) {
-                        console.error(err);
-                    }
-                }
-            }
+            showLoading(btnSubmit);
+            try {
+                const q = query(collection(db, "leagues"), where("playerCodes", "array-contains", playerCode));
+                const querySnapshot = await getDocs(q);
 
-            if (foundLeague) {
-                savePlayerCode(playerCode);
-                localStorage.setItem('kg_current_league_code', foundLeague);
-                dialogContinue.close();
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('Kode Pemain tidak ditemukan di liga manapun. Silakan buat atau gabung liga baru.');
+                if (!querySnapshot.empty) {
+                    const foundLeague = querySnapshot.docs[0].id;
+                    savePlayerCode(playerCode);
+                    localStorage.setItem('kg_current_league_code', foundLeague);
+                    dialogContinue.close();
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert('Kode Pemain tidak ditemukan di liga manapun. Silakan buat atau gabung liga baru.');
+                }
+            } catch (error) {
+                console.error("Error finding league:", error);
+                alert("Terjadi kesalahan jaringan.");
+            } finally {
+                hideLoading(btnSubmit);
             }
         }
     });
